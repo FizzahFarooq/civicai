@@ -1,4 +1,25 @@
-node_modules
+# Dependencies
+node_modules/
+
+# Secrets — never commit
 .env
+
+# Old SQLite database leftovers (kept for safety)
+data/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Uploaded photos — keep the folder but ignore the photos
 uploads/*
 !uploads/.gitkeep
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+.vscode/
+.idea/
