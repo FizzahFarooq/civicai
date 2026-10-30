@@ -12,7 +12,7 @@ services:
     volumes:
       - civicai_ci_db_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pRootPassCI2026x"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pRootPassCI2026x"]
       interval: 5s
       timeout: 5s
       retries: 30
@@ -20,6 +20,7 @@ services:
   app-ci:
     image: node:20-slim
     container_name: civicai-app-ci
+    restart: on-failure
     working_dir: /app
     command: ["node", "server/index.js"]
     ports:

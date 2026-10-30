@@ -14,7 +14,7 @@ services:
       - civicai_db_data:/var/lib/mysql
       - ./db-init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pRootPass2026x"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pRootPass2026x"]
       interval: 5s
       timeout: 5s
       retries: 30
