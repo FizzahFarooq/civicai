@@ -115,3 +115,4 @@ Restart the server (`Ctrl+C`, then `npm start`) after editing `.env`.
               hotspots.js | seed.js | migrate-from-sqlite.js | config.js
     public/   index.html | css/style.css | js/app.js      (unchanged by the MySQL move)
     uploads/  citizen photos
+
