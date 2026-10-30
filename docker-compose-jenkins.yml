@@ -1,0 +1,43 @@
+services:
+  db-ci:
+    image: mysql:8.0
+    container_name: civicai-db-ci
+    environment:
+      MYSQL_ROOT_PASSWORD: RootPassCI2026x
+      MYSQL_DATABASE: civicai
+      MYSQL_USER: civicai
+      MYSQL_PASSWORD: CivicPassCI2026x
+    ports:
+      - "3308:3306"
+    volumes:
+      - civicai_ci_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pRootPassCI2026x"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  app-ci:
+    image: node:20-slim
+    container_name: civicai-app-ci
+    working_dir: /app
+    command: ["node", "server/index.js"]
+    ports:
+      - "8082:3000"
+    environment:
+      PORT: 3000
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: AdminPassCI2026x
+      DB_HOST: db-ci
+      DB_PORT: 3306
+      DB_USER: civicai
+      DB_PASSWORD: CivicPassCI2026x
+      DB_NAME: civicai
+    volumes:
+      - ./:/app
+    depends_on:
+      db-ci:
+        condition: service_healthy
+
+volumes:
+  civicai_ci_db_data:

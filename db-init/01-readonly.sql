@@ -1,0 +1,3 @@
+CREATE USER IF NOT EXISTS 'reader'@'%' IDENTIFIED BY 'ReadOnly2026x';
+GRANT SELECT ON civicai.* TO 'reader'@'%';
+FLUSH PRIVILEGES;

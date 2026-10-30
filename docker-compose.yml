@@ -1,0 +1,47 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: civicai-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: RootPass2026x
+      MYSQL_DATABASE: civicai
+      MYSQL_USER: civicai
+      MYSQL_PASSWORD: CivicPass2026x
+    ports:
+      - "3307:3306"
+    volumes:
+      - civicai_db_data:/var/lib/mysql
+      - ./db-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pRootPass2026x"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  app:
+    image: YOUR_DOCKERHUB_USERNAME/civicai:latest
+    container_name: civicai-app
+    restart: unless-stopped
+    ports:
+      - "8081:3000"
+    environment:
+      PORT: 3000
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: AdminPass2026x
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: civicai
+      DB_PASSWORD: CivicPass2026x
+      DB_NAME: civicai
+      MAP_CENTER_LAT: 33.6844
+      MAP_CENTER_LNG: 73.0479
+    volumes:
+      - civicai_uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  civicai_db_data:
+  civicai_uploads:
