@@ -20,7 +20,7 @@ services:
       retries: 30
 
   app:
-    image: YOUR_DOCKERHUB_USERNAME/civicai:latest
+    image: fizzahfarooq/civicai:latest
     container_name: civicai-app
     restart: unless-stopped
     ports:

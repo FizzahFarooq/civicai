@@ -50,7 +50,7 @@ pipeline {
   post {
     always {
       script {
-        def email = 'YOUR_OWN_GMAIL@gmail.com'
+        def email = 'fizzahfarooq1064@gmail.com'
         def name  = 'there'
         try {
           def e = sh(script: 'git log -1 --pretty=format:%ae', returnStdout: true).trim()
